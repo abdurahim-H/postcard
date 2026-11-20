@@ -110,6 +110,20 @@ h1{font-size:clamp(32px,5.4vw,52px);line-height:1.05;margin:20px 0 12px;font-wei
 .ends{display:flex;justify-content:space-between;width:262px;max-width:100%;font-size:13px;color:var(--soft);margin-top:8px}
 .foot2{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;padding-top:20px}
 
+.read{font:600 26px/40px Caveat,cursive;color:var(--blue);white-space:pre-wrap;overflow-wrap:anywhere;min-height:240px;padding:0 2px;background-image:repeating-linear-gradient(to bottom,transparent 0 39px,var(--line) 39px 40px)}
+.val{font:600 24px/1.3 Caveat,cursive;color:var(--blue);border-bottom:1.5px solid var(--line);padding:6px 2px;min-height:46px}
+a.send{text-decoration:none}
+.ghost{display:inline-flex;align-items:center;justify-content:center;min-height:56px;padding:0 24px;border-radius:999px;border:2px solid rgba(255,255,255,.65);color:var(--on);font:600 16px/1 Outfit,system-ui,sans-serif;text-decoration:none}
+.ghost:hover{background:rgba(255,255,255,.08)}
+.ghost:focus-visible{outline:3px solid #fff;outline-offset:3px}
+.btns{display:flex;gap:12px;flex-wrap:wrap;margin-top:24px}
+.q textarea{width:100%;min-height:150px;border:1.5px solid var(--line);border-radius:6px;background:#fff;font:600 22px/1.4 Caveat,cursive;color:var(--blue);padding:10px 12px;outline:none;resize:vertical}
+.q textarea:focus{border-color:var(--blue)}
+.out{display:flex;gap:10px;flex-wrap:wrap;align-items:center;padding-top:18px}
+.out input{flex:1 1 260px;min-height:48px;border:1.5px solid var(--line);border-radius:8px;padding:0 12px;font:14px/1 Outfit,system-ui,sans-serif;color:var(--ink);background:#fff}
+@keyframes arrive{0%{transform:translateY(28px) rotate(-3deg);opacity:0}100%{transform:none;opacity:1}}
+#card:not([hidden]) .card{animation:arrive .7s cubic-bezier(.2,.8,.2,1) both}
+@media(prefers-reduced-motion:reduce){#card:not([hidden]) .card{animation:none}}
 footer{padding:0 max(5vw,16px) 40px;max-width:1040px;margin:0 auto;font-size:14px;color:var(--on-soft)}
 
 @keyframes thump{0%{transform:scale(1.5) rotate(-24deg);opacity:0}60%{transform:scale(.95) rotate(-8deg);opacity:1}100%{transform:rotate(-10deg)}}
@@ -245,6 +259,69 @@ footer{padding:0 max(5vw,16px) 40px;max-width:1040px;margin:0 auto;font-size:14p
    <div class="row"><a class="btn2 solid" id="goWrite" href="#" hidden>Write your postcard</a></div>
   </div>
  </section>
+ <section id="card" class="view" hidden>
+  <h1>A postcard for you</h1>
+  <p class="lede">Someone you don't know wrote this for you. You don't need to reply or give anything back.</p>
+  <div class="card"><div class="sheet">
+   <div class="post">
+    <div class="msg">
+     <p class="dear" aria-hidden="true">Dear stranger,</p>
+     <div class="read" id="rMsg"></div>
+    </div>
+    <div class="divide" aria-hidden="true"></div>
+    <div class="addr">
+     <div class="marks" aria-hidden="true">
+      <svg class="pm" viewBox="0 0 150 96">
+       <defs><path id="pmarc2" d="M17 48a27 27 0 0 1 54 0"/></defs>
+       <g fill="none" stroke="#1b2232" stroke-opacity=".5" stroke-width="1.6">
+        <circle cx="44" cy="48" r="35"/><circle cx="44" cy="48" r="29"/>
+        <path d="M82 30q6-5 12 0t12 0t12 0t12 0t12 0M82 41q6-5 12 0t12 0t12 0t12 0t12 0M82 52q6-5 12 0t12 0t12 0t12 0t12 0M82 63q6-5 12 0t12 0t12 0t12 0t12 0"/>
+       </g>
+       <g fill="#1b2232" fill-opacity=".55" font-family="Outfit,sans-serif" font-weight="700">
+        <text font-size="7" letter-spacing="1"><textPath href="#pmarc2" startOffset="50%" text-anchor="middle">TOMORROW UNI</textPath></text>
+        <text x="44" y="54" text-anchor="middle" font-size="10">20 NOV</text>
+        <text x="44" y="66" text-anchor="middle" font-size="8">2026</text>
+       </g>
+      </svg>
+      <svg class="stamp" viewBox="0 0 94 114">
+       <defs><mask id="perf2"><rect width="94" height="114" fill="#fff"/><g class="holes" fill="#000"></g></mask></defs>
+       <rect width="94" height="114" fill="#fffdf7" mask="url(#perf2)"/>
+       <rect x="8" y="8" width="78" height="98" rx="2" fill="#1e3e8c"/>
+       <circle cx="47" cy="45" r="25" fill="#2b51ab"/>
+       <path d="M47 63c-8.6-5.1-14.4-10.7-14.4-17.4 0-4.4 3.4-8 7.5-8 2.9 0 5.3 1.6 6.9 4 1.6-2.4 4-4 6.9-4 4.1 0 7.5 3.6 7.5 8 0 4.4-2.7 8.4-6.9 12.1" fill="none" stroke="#ff7a6b" stroke-width="3" stroke-linecap="round"/>
+       <path d="M54.6 57.6c3 2.3 6.4 4 10.6 4.4 2.8.3 5-.7 6.3-2.5" fill="none" stroke="#ff7a6b" stroke-width="1.6" stroke-linecap="round" stroke-dasharray="2.2 2.6"/>
+       <text x="47" y="90" text-anchor="middle" font-family="Caveat,cursive" font-weight="700" font-size="18" fill="#fffdf7">kindness</text>
+       <text x="47" y="100.5" text-anchor="middle" font-family="Outfit,sans-serif" font-weight="600" font-size="7.5" fill="#c9d4f2">0,00 €</text>
+      </svg>
+     </div>
+     <div class="field"><span class="lab">To</span><div class="to">you</div></div>
+     <div class="field"><span class="lab">From</span><div class="val" id="rFrom"></div></div>
+     <div class="field"><span class="lab">Writing from</span><div class="val" id="rCity"></div></div>
+    </div>
+   </div>
+  </div></div>
+  <div class="btns">
+   <a class="send" href="#felt"><b>Tell us how it felt</b></a>
+   <a class="ghost" href="#">Write one for someone else</a>
+  </div>
+ </section>
+
+ <section id="make" class="view" hidden>
+  <h1>Make a postcard link</h1>
+  <p class="lede">For Mission Group 4. Copy a postcard from the results sheet, make a link, and send the link to someone.</p>
+  <form id="f3" class="card" novalidate><div class="sheet">
+   <div class="q"><label class="qt" for="kMsg">Postcard text</label><textarea id="kMsg" maxlength="600"></textarea></div>
+   <div class="q"><label class="qt" for="kName">From (name, or leave empty for anonymous)</label><input type="text" id="kName" maxlength="60"></div>
+   <div class="q"><label class="qt" for="kCity">Writing from</label><input type="text" id="kCity" maxlength="80"></div>
+   <div class="foot2"><p class="err" id="e3" role="alert"></p><button class="btn2 solid" type="submit">Make link</button></div>
+   <div class="out" id="kOut" hidden>
+    <label for="kLink" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Postcard link</label>
+    <input id="kLink" readonly>
+    <button class="btn2 solid" type="button" id="kCopy">Copy link</button>
+    <a class="btn2" id="kOpen" href="#" target="_blank" rel="noopener">Open</a>
+   </div>
+  </div></form>
+ </section>
 </main>
 
 <footer>A small kindness experiment by Mission Group 4 at Tomorrow University, and a first test of our idea "The Common Thread": giving should not create a debt, and receiving should not create an obligation. We only use your contact to send you a postcard, and we never share it.</footer>
@@ -255,20 +332,35 @@ footer{padding:0 max(5vw,16px) 40px;max-width:1040px;margin:0 auto;font-size:14p
  const F2 = 'https://docs.google.com/forms/d/e/1FAIpQLSdrXv4__coJBLlxtC8LsNfLCBeLuUGi3pQhUCAW7nV4HtichA/formResponse';
  const $ = s => document.querySelector(s);
 
- const holes = $('#holes');
  let h = '';
  for (let x = 5; x <= 89; x += 7) h += `<circle cx="${x}" cy="0" r="3"/><circle cx="${x}" cy="114" r="3"/>`;
  for (let y = 5; y <= 109; y += 7) h += `<circle cx="0" cy="${y}" r="3"/><circle cx="94" cy="${y}" r="3"/>`;
- holes.innerHTML = h;
+ for (const g of document.querySelectorAll('#holes,.holes')) g.innerHTML = h;
+
+ const b64e = str => { let bin = ''; new TextEncoder().encode(str).forEach(b => { bin += String.fromCharCode(b); }); return btoa(bin).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, ''); };
+ const b64d = str => new TextDecoder().decode(Uint8Array.from(atob(str.replace(/-/g, '+').replace(/_/g, '/')), c => c.charCodeAt(0)));
+ const titles = { write: 'Postcard to a stranger', felt: 'You got a postcard', card: 'A postcard for you', make: 'Make a postcard link' };
 
  const navW = $('#nav-write'), navF = $('#nav-felt');
  const route = () => {
-  const felt = location.hash === '#felt';
-  $('#write').hidden = felt;
-  $('#felt').hidden = !felt;
-  if (felt) { navF.setAttribute('aria-current', 'page'); navW.removeAttribute('aria-current'); }
-  else { navW.setAttribute('aria-current', 'page'); navF.removeAttribute('aria-current'); }
-  document.title = felt ? 'You got a postcard' : 'Postcard to a stranger';
+  const hs = location.hash;
+  const view = hs === '#felt' ? 'felt' : hs === '#make' ? 'make' : hs.startsWith('#card=') ? 'card' : 'write';
+  for (const v of ['write', 'felt', 'card', 'make']) $('#' + v).hidden = v !== view;
+  navW.toggleAttribute('aria-current', false); navF.toggleAttribute('aria-current', false);
+  if (view === 'write') navW.setAttribute('aria-current', 'page');
+  if (view === 'felt') navF.setAttribute('aria-current', 'page');
+  if (view === 'card') {
+   try {
+    const d = JSON.parse(b64d(hs.slice(6)));
+    $('#rMsg').textContent = d.m || '';
+    $('#rFrom').textContent = d.n || 'anonymous';
+    $('#rCity').textContent = d.f || 'somewhere';
+   } catch (err) {
+    $('#rMsg').textContent = 'This postcard link looks broken. Ask the person who sent it for a new one.';
+    $('#rFrom').textContent = ''; $('#rCity').textContent = '';
+   }
+  }
+  document.title = titles[view];
  };
  addEventListener('hashchange', () => { route(); scrollTo(0, 0); });
  route();
@@ -341,6 +433,20 @@ footer{padding:0 max(5vw,16px) 40px;max-width:1040px;margin:0 auto;font-size:14p
  });
  $('#goWrite').addEventListener('click', () => {
   f2.reset(); f2.hidden = false; $('#thanks').hidden = true;
+ });
+
+ const f3 = $('#f3'), e3 = $('#e3');
+ f3.addEventListener('submit', e => {
+  e.preventDefault();
+  const m = $('#kMsg').value.trim();
+  if (!m) { e3.textContent = 'Paste the postcard text first.'; return; }
+  e3.textContent = '';
+  const link = location.origin + location.pathname + '#card=' + b64e(JSON.stringify({ m, n: $('#kName').value.trim() || 'anonymous', f: $('#kCity').value.trim() }));
+  $('#kLink').value = link; $('#kOpen').href = link; $('#kOut').hidden = false; $('#kCopy').textContent = 'Copy link';
+ });
+ $('#kCopy').addEventListener('click', async () => {
+  try { await navigator.clipboard.writeText($('#kLink').value); $('#kCopy').textContent = 'Copied'; }
+  catch (err) { $('#kLink').select(); }
  });
 }
 </script>
