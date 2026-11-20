@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Postcard to a stranger</title>
+<meta name="description" content="A small kindness experiment by Mission Group 4 at Tomorrow University. Write a few kind lines to someone you don't know. It takes 2 minutes.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Write a postcard to a stranger">
+<meta property="og:description" content="A small kindness experiment by Mission Group 4 at Tomorrow University. It takes 2 minutes.">
+<meta property="og:url" content="https://abdurahim-h.github.io/postcard/">
+<meta name="twitter:card" content="summary">
+<meta name="theme-color" content="#c4302b">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23c4302b'/%3E%3Cpath d='M16 25c-6-3.6-9.5-7.4-9.5-11.6 0-3 2.3-5.4 5.1-5.4 1.9 0 3.4 1 4.4 2.6 1-1.6 2.5-2.6 4.4-2.6 2.8 0 5.1 2.4 5.1 5.4 0 3-2 5.7-5 8.2' fill='none' stroke='%23fff' stroke-width='2.4' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* VOICE: warm and personal, few words, nothing pushy.
+   IDEA: an airmail postcard you write on, then drop in the post.
+   PICTURE: the postcard itself, with airmail stripes, a stamp and a postmark.
+   COLOUR and TYPE: postal red field, paper card, airmail blue ink. Caveat handwriting with Outfit.
+   LAYOUT: modest title, then the card. Below 680px the card stacks: message first, address second. */
+:root{color-scheme:light dark;
+ --field:light-dark(#c4302b,#1f0b0c);
+ --glow:light-dark(rgba(255,255,255,.16),rgba(255,110,90,.07));
+ --on:light-dark(#fff7f1,#f4e7e2);
+ --on-soft:light-dark(#ffe3da,#cbb4ad);
+ --paper:light-dark(#fffdf7,#f5f0e6);
+ --ink:#1b2232;--soft:#626979;--blue:#1e3e8c;--red:#c4302b;--line:#dfe4ee;--warn:#b3261e}
+:root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box;min-width:0}
+html{scroll-padding-top:72px}
+body{margin:0;min-height:100vh;background:radial-gradient(1100px 620px at 75% -12%,var(--glow),transparent 62%),var(--field);color:var(--on);font:16px/1.55 Outfit,system-ui,-apple-system,"Segoe UI",sans-serif;overflow-x:clip}
+.view[hidden],form[hidden],.done[hidden]{display:none}
+
+.top{display:flex;align-items:center;justify-content:space-between;gap:10px 16px;flex-wrap:wrap;padding:16px max(5vw,16px);max-width:1120px;margin:0 auto}
+.brand{display:flex;align-items:center;gap:10px;font-weight:600;font-size:17px}
+.brand svg{width:30px;height:30px;flex:none}
+.nav{display:flex;gap:4px;flex-wrap:wrap}
+.nav a{color:var(--on);text-decoration:none;font-size:15px;font-weight:500;padding:0 16px;min-height:44px;border-radius:999px;display:inline-flex;align-items:center}
+.nav a:hover{background:rgba(255,255,255,.1)}
+.nav a[aria-current=page]{background:rgba(255,255,255,.18)}
+.nav a:focus-visible{outline:3px solid #fff;outline-offset:2px}
+
+main{padding:4px max(5vw,16px) 48px;max-width:1040px;margin:0 auto}
+h1{font-size:clamp(32px,5.4vw,52px);line-height:1.05;margin:20px 0 12px;font-weight:700;text-wrap:balance;letter-spacing:-.01em}
+.lede{font-size:17px;max-width:60ch;margin:0 0 28px;color:var(--on-soft)}
+
+.card{position:relative;background:var(--paper);color:var(--ink);border-radius:8px;padding:11px;box-shadow:0 1px 0 rgba(0,0,0,.06),0 30px 64px -26px rgba(30,0,0,.6)}
+.card::before{content:"";position:absolute;inset:0;border-radius:8px;padding:9px;pointer-events:none;
+ background:repeating-linear-gradient(135deg,var(--red) 0 14px,transparent 14px 21px,var(--blue) 21px 35px,transparent 35px 42px);
+ -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;
+ mask:linear-gradient(#000 0 0) content-box exclude,linear-gradient(#000 0 0)}
+.sheet{position:relative;border-radius:3px;padding:clamp(18px,3.2vw,32px);background-color:var(--paper);background-image:radial-gradient(rgba(120,90,40,.06) 1px,transparent 1px);background-size:7px 7px}
+
+.post{display:grid;grid-template-columns:minmax(0,1.3fr) 1px minmax(0,1fr);gap:clamp(18px,3vw,34px)}
+.divide{background:var(--line)}
+.dear{font:700 30px/1 Caveat,cursive;color:var(--blue);margin:0 0 8px}
+.msg textarea{display:block;width:100%;min-height:280px;resize:vertical;border:0;padding:0 2px;margin:0;border-radius:2px;background:transparent;background-image:repeating-linear-gradient(to bottom,transparent 0 39px,var(--line) 39px 40px);background-attachment:local;font:600 26px/40px Caveat,cursive;color:var(--blue);outline:none}
+.msg textarea::placeholder{color:#9aa2b4}
+.msg textarea:focus-visible{box-shadow:0 0 0 3px rgba(30,62,140,.18)}
+.meta{display:flex;justify-content:space-between;gap:12px;font-size:13px;color:var(--soft);margin-top:8px}
+.err{color:var(--warn);font-size:14px;margin:0}
+
+.addr{display:flex;flex-direction:column;gap:12px}
+.marks{position:relative;display:flex;justify-content:flex-end;min-height:124px;margin-bottom:2px}
+.stamp{position:relative;z-index:1;width:94px;height:114px;flex:none;transform:rotate(2.5deg);filter:drop-shadow(0 1px 1.5px rgba(0,0,0,.2))}
+.pm{position:absolute;z-index:2;right:38px;top:22px;width:150px;height:96px;pointer-events:none}
+.field{display:flex;flex-direction:column}
+.field label,.lab{font-size:13px;color:var(--soft)}
+.field input,.q input[type=text]{width:100%;border:0;border-bottom:1.5px solid var(--line);border-radius:0;background:transparent;font:600 24px/1.3 Caveat,cursive;color:var(--blue);padding:6px 2px;min-height:46px;outline:none}
+.field input:focus,.q input[type=text]:focus{border-bottom-color:var(--blue)}
+.field input::placeholder,.q input::placeholder{color:#a3aabb}
+.to{font:700 26px/1.3 Caveat,cursive;color:var(--ink);border-bottom:1.5px solid var(--line);padding:6px 2px;min-height:46px}
+
+.actions{display:flex;align-items:center;justify-content:space-between;gap:18px 28px;flex-wrap:wrap;margin-top:24px}
+.check{display:flex;gap:12px;align-items:flex-start;max-width:520px;cursor:pointer;font-size:16px}
+.check input{appearance:none;-webkit-appearance:none;flex:none;width:24px;height:24px;margin:1px 0 0;border:2px solid var(--on);border-radius:6px;display:grid;place-items:center;cursor:pointer;background:transparent}
+.check input:checked{background:var(--on)}
+.check input:checked::after{content:"";width:11px;height:6px;border:3px solid var(--field);border-top:0;border-right:0;transform:translateY(-2px) rotate(-45deg)}
+.check input:focus-visible{outline:3px solid #fff;outline-offset:2px}
+.send{appearance:none;border:0;background:var(--paper);color:var(--red);font:700 17px/1 Outfit,system-ui,sans-serif;padding:0 26px;min-height:56px;border-radius:999px;display:inline-flex;align-items:center;gap:10px;cursor:pointer;box-shadow:0 12px 26px -12px rgba(0,0,0,.55)}
+.send svg{width:20px;height:20px;flex:none}
+.send:hover{filter:brightness(.98)}
+.send:focus-visible{outline:3px solid #fff;outline-offset:3px}
+.send[disabled]{opacity:.75;cursor:progress}
+.note{font-size:14px;color:var(--on-soft);margin:16px 0 0}
+
+.done{text-align:center;padding:clamp(26px,5vw,56px) clamp(16px,4vw,48px)}
+.bigpm{display:block;width:180px;height:180px;margin:0 auto 14px;color:var(--red);transform:rotate(-10deg)}
+.done h2{font-size:clamp(28px,4vw,40px);line-height:1.1;margin:0 0 10px;color:var(--ink);text-wrap:balance}
+.done p{color:var(--soft);max-width:46ch;margin:0 auto 22px}
+.btn2{appearance:none;display:inline-flex;align-items:center;justify-content:center;border:2px solid var(--blue);background:transparent;color:var(--blue);font:600 16px/1 Outfit,system-ui,sans-serif;padding:0 22px;min-height:48px;border-radius:999px;cursor:pointer;text-decoration:none}
+.btn2.solid{background:var(--blue);color:#fff}
+.btn2:focus-visible{outline:3px solid var(--blue);outline-offset:3px}
+.row{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+
+.q{border:0;margin:0;padding:18px 0;border-bottom:1px solid var(--line)}
+.q:first-child{padding-top:0}
+.q legend,.q .qt{display:block;float:left;width:100%;padding:0;margin:0 0 12px;font-size:18px;font-weight:600;color:var(--ink)}
+.q legend+*{clear:both}
+.opts{display:flex;gap:8px;flex-wrap:wrap}
+.opts label{position:relative}
+.opts input{position:absolute;opacity:0;width:1px;height:1px}
+.opts span{display:inline-flex;align-items:center;justify-content:center;min-height:46px;padding:0 20px;border-radius:999px;border:2px solid var(--line);background:#fff;font-weight:600;color:var(--ink);cursor:pointer}
+.opts.scale span{width:46px;padding:0;border-radius:50%;font-size:17px}
+.opts input:checked+span{background:var(--blue);border-color:var(--blue);color:#fff}
+.opts input:focus-visible+span{outline:3px solid var(--blue);outline-offset:2px}
+.ends{display:flex;justify-content:space-between;width:262px;max-width:100%;font-size:13px;color:var(--soft);margin-top:8px}
+.foot2{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;padding-top:20px}
+
+footer{padding:0 max(5vw,16px) 40px;max-width:1040px;margin:0 auto;font-size:14px;color:var(--on-soft)}
+
+@keyframes thump{0%{transform:scale(1.5) rotate(-24deg);opacity:0}60%{transform:scale(.95) rotate(-8deg);opacity:1}100%{transform:rotate(-10deg)}}
+.done:not([hidden]) .bigpm{animation:thump .55s cubic-bezier(.2,.8,.2,1) both}
+@media(prefers-reduced-motion:reduce){.done:not([hidden]) .bigpm{animation:none}}
+
+@media(max-width:680px){
+ .post{grid-template-columns:minmax(0,1fr)}
+ .divide{height:1px;background:repeating-linear-gradient(90deg,var(--line) 0 8px,transparent 8px 14px)}
+ .msg textarea{min-height:240px}
+ .marks{justify-content:flex-start;min-height:118px}
+ .pm{right:auto;left:62px}
+ .actions{align-items:stretch}
+ .send{width:100%;justify-content:center}
+}
+</style>
+</head>
+<body>
+<header class="top">
+ <div class="brand">
+  <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 25c-6-3.6-9.5-7.4-9.5-11.6 0-3 2.3-5.4 5.1-5.4 1.9 0 3.4 1 4.4 2.6 1-1.6 2.5-2.6 4.4-2.6 2.8 0 5.1 2.4 5.1 5.4 0 3-2 5.7-5 8.2" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/><path d="M20.5 21.6c1.9 1.6 4.1 2.6 6.9 2.8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-dasharray="2 3"/></svg>
+  <span>The Common Thread</span>
+ </div>
+ <nav class="nav" aria-label="Pages">
+  <a href="#" id="nav-write">Write a postcard</a>
+  <a href="#felt" id="nav-felt">Got a postcard?</a>
+ </nav>
+</header>
+
+<main>
+ <section id="write" class="view">
+  <h1>Write a postcard to a stranger</h1>
+  <p class="lede">A few kind lines for someone you don't know. We pass your postcard on to a stranger, and if you want, one comes back to you. It takes 2 minutes.</p>
+
+  <form id="f1" novalidate>
+   <div class="card"><div class="sheet">
+    <div class="post">
+     <div class="msg">
+      <p class="dear" aria-hidden="true">Dear stranger,</p>
+      <label for="m" class="lab" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Your postcard</label>
+      <textarea id="m" maxlength="600" placeholder="write something kind for someone you will never meet..."></textarea>
+      <div class="meta"><p class="err" id="e1" role="alert"></p><span><span id="mc">0</span> / 600</span></div>
+     </div>
+     <div class="divide" aria-hidden="true"></div>
+     <div class="addr">
+      <div class="marks" aria-hidden="true">
+       <svg class="pm" viewBox="0 0 150 96">
+        <defs><path id="pmarc" d="M17 48a27 27 0 0 1 54 0"/></defs>
+        <g fill="none" stroke="#1b2232" stroke-opacity=".5" stroke-width="1.6">
+         <circle cx="44" cy="48" r="35"/><circle cx="44" cy="48" r="29"/>
+         <path d="M82 30q6-5 12 0t12 0t12 0t12 0t12 0M82 41q6-5 12 0t12 0t12 0t12 0t12 0M82 52q6-5 12 0t12 0t12 0t12 0t12 0M82 63q6-5 12 0t12 0t12 0t12 0t12 0"/>
+        </g>
+        <g fill="#1b2232" fill-opacity=".55" font-family="Outfit,sans-serif" font-weight="700">
+         <text font-size="7" letter-spacing="1"><textPath href="#pmarc" startOffset="50%" text-anchor="middle">TOMORROW UNI</textPath></text>
+         <text x="44" y="54" text-anchor="middle" font-size="10">20 NOV</text>
+         <text x="44" y="66" text-anchor="middle" font-size="8">2026</text>
+        </g>
+       </svg>
+       <svg class="stamp" viewBox="0 0 94 114">
+        <defs><mask id="perf"><rect width="94" height="114" fill="#fff"/><g id="holes" fill="#000"></g></mask></defs>
+        <rect width="94" height="114" fill="#fffdf7" mask="url(#perf)"/>
+        <rect x="8" y="8" width="78" height="98" rx="2" fill="#1e3e8c"/>
+        <circle cx="47" cy="45" r="25" fill="#2b51ab"/>
+        <path d="M47 63c-8.6-5.1-14.4-10.7-14.4-17.4 0-4.4 3.4-8 7.5-8 2.9 0 5.3 1.6 6.9 4 1.6-2.4 4-4 6.9-4 4.1 0 7.5 3.6 7.5 8 0 4.4-2.7 8.4-6.9 12.1" fill="none" stroke="#ff7a6b" stroke-width="3" stroke-linecap="round"/>
+        <path d="M54.6 57.6c3 2.3 6.4 4 10.6 4.4 2.8.3 5-.7 6.3-2.5" fill="none" stroke="#ff7a6b" stroke-width="1.6" stroke-linecap="round" stroke-dasharray="2.2 2.6"/>
+        <text x="47" y="90" text-anchor="middle" font-family="Caveat,cursive" font-weight="700" font-size="18" fill="#fffdf7">kindness</text>
+        <text x="47" y="100.5" text-anchor="middle" font-family="Outfit,sans-serif" font-weight="600" font-size="7.5" fill="#c9d4f2">0,00 €</text>
+       </svg>
+      </div>
+      <div class="field"><span class="lab">To</span><div class="to">someone you don't know</div></div>
+      <div class="field"><label for="name">From (your first name, or leave it empty)</label><input id="name" autocomplete="given-name" maxlength="60" placeholder="anonymous"></div>
+      <div class="field"><label for="from">Writing from</label><input id="from" maxlength="80" placeholder="city or country"></div>
+      <div class="field"><label for="contact">Want a postcard back? (optional)</label><input id="contact" maxlength="120" placeholder="Slack name, WhatsApp or email"></div>
+     </div>
+    </div>
+   </div></div>
+
+   <div class="actions">
+    <label class="check"><input type="checkbox" id="ok1"><span>You can show my postcard in our class talk on Monday, without my name.</span></label>
+    <button class="send" id="send1" type="submit"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11.5 21 3l-6.5 18-3.2-7.3L3 11.5Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="m11.3 13.7 4.2-4.2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><b>Send to a stranger</b></button>
+   </div>
+   <p class="note">Part of our 2-hour kindness experiment today, Fri 20 Nov, until 13:00 CET.</p>
+  </form>
+
+  <div class="card done" id="sent" hidden tabindex="-1">
+   <svg class="bigpm" viewBox="0 0 180 180" aria-hidden="true">
+    <defs><path id="pt" d="M26 90a64 64 0 0 1 128 0"/><path id="pb" d="M20 90a70 70 0 0 0 140 0"/></defs>
+    <g fill="none" stroke="currentColor"><circle cx="90" cy="90" r="85" stroke-width="3"/><circle cx="90" cy="90" r="55" stroke-width="2"/></g>
+    <g fill="currentColor" font-family="Outfit,sans-serif" font-weight="700" font-size="12" letter-spacing="2">
+     <text><textPath href="#pt" startOffset="50%" text-anchor="middle">TOMORROW UNIVERSITY</textPath></text>
+     <text><textPath href="#pb" startOffset="50%" text-anchor="middle">MISSION GROUP 4</textPath></text>
+    </g>
+    <text x="90" y="94" text-anchor="middle" font-family="Caveat,cursive" font-weight="700" font-size="44" fill="currentColor">Sent</text>
+    <text x="90" y="114" text-anchor="middle" font-family="Outfit,sans-serif" font-weight="600" font-size="11" letter-spacing="1" fill="currentColor">20 NOV 2026</text>
+   </svg>
+   <h2>Your postcard is on its way</h2>
+   <p id="sentNote">We will pass it on to someone you don't know.</p>
+   <div class="row"><button class="btn2 solid" id="again" type="button">Write another one</button></div>
+  </div>
+ </section>
+
+ <section id="felt" class="view" hidden>
+  <h1>You got a postcard</h1>
+  <p class="lede">Someone you don't know wrote it for you. You don't need to reply or give anything back. If you have a minute, tell us how it felt.</p>
+
+  <form id="f2" class="card" novalidate><div class="sheet">
+   <div class="q"><label class="qt" for="feel">How did it make you feel?</label><input type="text" id="feel" name="feel" maxlength="200" placeholder="one line is enough"></div>
+   <fieldset class="q"><legend>Did it make you feel acknowledged?</legend>
+    <div class="opts scale">
+     <label><input type="radio" name="ack" value="1"><span>1</span></label>
+     <label><input type="radio" name="ack" value="2"><span>2</span></label>
+     <label><input type="radio" name="ack" value="3"><span>3</span></label>
+     <label><input type="radio" name="ack" value="4"><span>4</span></label>
+     <label><input type="radio" name="ack" value="5"><span>5</span></label>
+    </div>
+    <div class="ends"><span>Not at all</span><span>Very much</span></div>
+   </fieldset>
+   <fieldset class="q"><legend>Would you take part again?</legend>
+    <div class="opts"><label><input type="radio" name="again" value="Yes"><span>Yes</span></label><label><input type="radio" name="again" value="Maybe"><span>Maybe</span></label><label><input type="radio" name="again" value="No"><span>No</span></label></div>
+   </fieldset>
+   <fieldset class="q"><legend>Would you like to write a postcard for someone else now?</legend>
+    <div class="opts"><label><input type="radio" name="write" value="Yes"><span>Yes</span></label><label><input type="radio" name="write" value="No"><span>No</span></label></div>
+   </fieldset>
+   <fieldset class="q"><legend>Can we quote your answer in our class talk on Monday, without your name?</legend>
+    <div class="opts"><label><input type="radio" name="quote" value="Yes"><span>Yes</span></label><label><input type="radio" name="quote" value="No"><span>No</span></label></div>
+   </fieldset>
+   <div class="foot2"><p class="err" id="e2" role="alert"></p><button class="btn2 solid" id="send2" type="submit">Send</button></div>
+  </div></form>
+
+  <div class="card done" id="thanks" hidden tabindex="-1">
+   <h2>Thank you for telling us</h2>
+   <p>Your answer helps us learn if small, free acts of kindness make people feel seen.</p>
+   <div class="row"><a class="btn2 solid" id="goWrite" href="#" hidden>Write your postcard</a></div>
+  </div>
+ </section>
+</main>
+
+<footer>A small kindness experiment by Mission Group 4 at Tomorrow University, and a first test of our idea "The Common Thread": giving should not create a debt, and receiving should not create an obligation. We only use your contact to send you a postcard, and we never share it.</footer>
+
+<script>
+{
+ const F1 = 'https://docs.google.com/forms/d/e/1FAIpQLSct2N5FhcgQ94fkyzG7RlHYVEmX4M0iQzC3G7v8YMqeRjjKuA/formResponse';
+ const F2 = 'https://docs.google.com/forms/d/e/1FAIpQLSdrXv4__coJBLlxtC8LsNfLCBeLuUGi3pQhUCAW7nV4HtichA/formResponse';
+ const $ = s => document.querySelector(s);
+
+ const holes = $('#holes');
+ let h = '';
+ for (let x = 5; x <= 89; x += 7) h += `<circle cx="${x}" cy="0" r="3"/><circle cx="${x}" cy="114" r="3"/>`;
+ for (let y = 5; y <= 109; y += 7) h += `<circle cx="0" cy="${y}" r="3"/><circle cx="94" cy="${y}" r="3"/>`;
+ holes.innerHTML = h;
+
+ const navW = $('#nav-write'), navF = $('#nav-felt');
+ const route = () => {
+  const felt = location.hash === '#felt';
+  $('#write').hidden = felt;
+  $('#felt').hidden = !felt;
+  if (felt) { navF.setAttribute('aria-current', 'page'); navW.removeAttribute('aria-current'); }
+  else { navW.setAttribute('aria-current', 'page'); navF.removeAttribute('aria-current'); }
+  document.title = felt ? 'You got a postcard' : 'Postcard to a stranger';
+ };
+ addEventListener('hashchange', () => { route(); scrollTo(0, 0); });
+ route();
+
+ const viaForm = (url, body) => new Promise(res => {
+  const name = 'sink' + Date.now();
+  const ifr = document.createElement('iframe');
+  ifr.name = name; ifr.hidden = true; document.body.append(ifr);
+  const f = document.createElement('form');
+  f.method = 'POST'; f.action = url; f.target = name; f.hidden = true;
+  for (const [k, v] of body) { const i = document.createElement('input'); i.type = 'hidden'; i.name = k; i.value = v; f.append(i); }
+  document.body.append(f);
+  let done = false;
+  const fin = () => { if (!done) { done = true; res(true); } };
+  ifr.addEventListener('load', fin);
+  f.submit();
+  setTimeout(fin, 3000);
+ });
+ const post = (url, data) => {
+  const body = new URLSearchParams(data);
+  return fetch(url, { method: 'POST', mode: 'no-cors', body }).then(() => true).catch(() => viaForm(url, body));
+ };
+
+ const f1 = $('#f1'), msg = $('#m'), mc = $('#mc'), e1 = $('#e1'), send1 = $('#send1');
+ msg.addEventListener('input', () => { mc.textContent = msg.value.length; if (e1.textContent) e1.textContent = ''; });
+ f1.addEventListener('submit', async e => {
+  e.preventDefault();
+  const text = msg.value.trim();
+  if (text.length < 3) { e1.textContent = 'Write a few words first.'; msg.focus(); return; }
+  send1.disabled = true; send1.querySelector('b').textContent = 'Sending...';
+  const contact = $('#contact').value.trim();
+  await post(F1, {
+   'entry.846600571': $('#name').value.trim() || 'anonymous',
+   'entry.534206130': $('#from').value.trim(),
+   'entry.738544481': text,
+   'entry.2055954014': contact,
+   'entry.1437767807': $('#ok1').checked ? 'Yes' : 'No'
+  });
+  $('#sentNote').textContent = contact
+   ? "We will pass it on to someone you don't know. A postcard from a stranger will find you too."
+   : "We will pass it on to someone you don't know.";
+  f1.hidden = true;
+  const sent = $('#sent'); sent.hidden = false; sent.focus();
+  send1.disabled = false; send1.querySelector('b').textContent = 'Send to a stranger';
+ });
+ $('#again').addEventListener('click', () => {
+  f1.reset(); mc.textContent = '0'; $('#sent').hidden = true; f1.hidden = false; msg.focus();
+ });
+
+ const f2 = $('#f2'), e2 = $('#e2'), send2 = $('#send2');
+ f2.addEventListener('change', () => { if (e2.textContent) e2.textContent = ''; });
+ f2.addEventListener('submit', async e => {
+  e.preventDefault();
+  const fd = new FormData(f2);
+  const feel = String(fd.get('feel') || '').trim();
+  const ack = fd.get('ack'), again = fd.get('again'), write = fd.get('write'), quote = fd.get('quote');
+  if (!feel || !ack || !again || !write || !quote) { e2.textContent = 'Please answer all 5 questions. It takes a minute.'; return; }
+  send2.disabled = true; send2.textContent = 'Sending...';
+  await post(F2, {
+   'entry.1631000381': feel,
+   'entry.223859316': ack,
+   'entry.1088305509': again,
+   'entry.2120293649': write,
+   'entry.241984105': quote
+  });
+  f2.hidden = true;
+  $('#goWrite').hidden = write !== 'Yes';
+  const t = $('#thanks'); t.hidden = false; t.focus();
+  send2.disabled = false; send2.textContent = 'Send';
+ });
+ $('#goWrite').addEventListener('click', () => {
+  f2.reset(); f2.hidden = false; $('#thanks').hidden = true;
+ });
+}
+</script>
+</body>
+</html>
