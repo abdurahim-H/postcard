@@ -441,7 +441,7 @@ footer{padding:0 max(5vw,16px) 40px;max-width:1040px;margin:0 auto;font-size:14p
   const m = $('#kMsg').value.trim();
   if (!m) { e3.textContent = 'Paste the postcard text first.'; return; }
   e3.textContent = '';
-  const link = location.origin + location.pathname + '#card=' + b64e(JSON.stringify({ m, n: $('#kName').value.trim() || 'anonymous', f: $('#kCity').value.trim() }));
+  const link = location.origin + location.pathname + '?for=you#card=' + b64e(JSON.stringify({ m, n: $('#kName').value.trim() || 'anonymous', f: $('#kCity').value.trim() }));
   $('#kLink').value = link; $('#kOpen').href = link; $('#kOut').hidden = false; $('#kCopy').textContent = 'Copy link';
  });
  $('#kCopy').addEventListener('click', async () => {
